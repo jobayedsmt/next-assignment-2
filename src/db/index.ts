@@ -28,6 +28,7 @@ const initDB = async () => {
     description TEXT NOT NULL,
     type VARCHAR(50) NOT NULL,
     reporter_id INTEGER NOT NULL,
+    status VARCHAR(10) DEFAULT 'open',
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
   );

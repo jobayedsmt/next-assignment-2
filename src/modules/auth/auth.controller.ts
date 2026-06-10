@@ -3,45 +3,46 @@ import { userService } from "./auth.service";
 import bcrypt from "bcryptjs";
 
 const signupUser = async (req: Request, res: Response) => {
-    try {
-        const { name, email, password } = req.body;
+  try {
+    const { name, email, password, role } = req.body;
 
-        if (!name || !email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "Name, email, and password are required",
-            });
-        }
-
-        const existingUser = await userService.checkUser(email);
-
-        if (existingUser.rows.length > 0) {
-            return res.status(409).json({
-                success: false,
-                message: "Email already exists",
-            });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const result = await userService.signupUserIntoDB({
-            name,
-            email,
-            password: hashedPassword,
-        });
-
-        return res.status(201).json({
-            success: true,
-            message: "User registered successfully",
-            data: result,
-        });
-
-    } catch (error: any) {
-        return res.status(500).json({
-            success: false,
-            message: error.message || "Internal server error",
-        });
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, email, and password are required",
+      });
     }
+
+    const existingUser = await userService.checkUser(email);
+
+    if (existingUser.rows.length > 0) {
+      return res.status(409).json({
+        success: false,
+        message: "Email already exists",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const result = await userService.signupUserIntoDB({
+      name,
+      email,
+      password: hashedPassword,
+      role, // 🔥 FIXED: pass role
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      data: result,
+    });
+
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
+  }
 };
 
 
