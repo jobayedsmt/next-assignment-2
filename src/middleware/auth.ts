@@ -16,7 +16,7 @@ export const auth = () => {
           message: "Unauthorized",
         });
       }
-      console.log(token)
+      // console.log(token)
 
       const decoded = jwt.verify(
         token as string,
@@ -39,10 +39,10 @@ export const auth = () => {
       }
 
       req.user = decoded;
-      console.log("user added:", req.user);
+      // console.log("user added:", req.user);
     }
     catch (err) {
-      console.log("err", err)
+      // console.log("err", err)
     }
 
     next();

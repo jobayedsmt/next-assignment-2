@@ -14,6 +14,14 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/",  async (req: Request, res: Response) => {
+  
+  res.status(200).json({
+    message: "Express Server",
+    success: "Server run successfully."
+  });
+});
+
 app.get("/api/users/", auth(), async (req: Request, res: Response) => {
   //res.send("Hello World!");
   const userData = await pool.query(

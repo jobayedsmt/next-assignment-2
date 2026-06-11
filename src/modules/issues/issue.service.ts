@@ -21,7 +21,7 @@ const createIssueIntoDB = async (
 
   const { title, description, type, status } = parsedPayload;
 
-  console.log(title, description, type)
+  // console.log(title, description, type)
   if (!title || !description || !type) {
     throw new Error("Missing required fields: title, description, type");
   }
@@ -203,7 +203,6 @@ const updateIssueIntoDB = async (
     role: string;
   }
 ) => {
-  console.log("1");
   const issueResult = await pool.query(
     `
     SELECT * FROM issues
@@ -212,7 +211,6 @@ const updateIssueIntoDB = async (
     [issueId]
   );
 
-  console.log("2");
   const issue = issueResult.rows[0];
 
   if (!issue) {

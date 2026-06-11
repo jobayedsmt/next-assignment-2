@@ -95,7 +95,7 @@ const deleteIssue = async (req: Request, res: Response) => {
 
     const result = await IssueService.deleteIssueFromDB(id);
 
-    console.log("Find issue: here")
+    // console.log("Find issue: here")
     return res.status(200).json({
       success: true,
       message: "Issue deleted successfully",
